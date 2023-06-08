@@ -30,3 +30,7 @@ The learning goals for this project asre to endure that I am able to demonstrate
 
 ## Wins + Challenges:
 [//]: <> (What are 2-3 wins you have from this project? What were some challenges you faced - and how did you get over them?)
+### CSS Grid and Responsive Design
+To set up the basic structure for the page, I reviewed a YouTub video titled, [Responsive CSS Grid Tutorial by Angela Design](https://www.youtube.com/watch?v=68O6eOGAGqA) and followed her instructions to set up the main grid and make the design responsive.
+
+I then reviewed another resource titled, [Create a Nested Grid](https://www.quackit.com/css/grid/tutorial/create_a_nested_grid.cfm#:~:text=Grid%20items%20can%20become%20grids,and%20it%20becomes%20a%20grid.) about nesting grids within grids so that I could create the Tic Tac Toe grid inside of the .game-board grid area. I wanted to put a separate grid in this area so that when it reflowed, the game-board would remain intact.
