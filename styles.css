@@ -1,0 +1,124 @@
+:root {
+    --main-raidius: 5px;
+    --main-padding: 5px;
+}
+
+body {
+    margin: 0;
+    padding: 0
+}
+
+.grid-layout {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1.4fr 1.1fr 1.1fr 1.1fr .3fr;
+    grid-template-areas:
+        "user1 main-intro main-intro main-intro user2"
+        "user1 game-board game-board game-board user2"
+        "user1 game-board game-board game-board user2"
+        "user1 game-board game-board game-board user2"
+        "user1 reset reset reset user2";
+    grid-gap: 0.2rem;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+/* main {
+    background-color: bisque;
+    grid-area: main;
+} */
+
+.main-intro {
+    background-color: chartreuse;
+    grid-area: main-intro;
+    border-radius: var(--main-radius);
+    padding-top: var(--main-padding);
+}
+
+.game-board {
+    background-color: bisque;
+    grid-area: game-board;
+    border-radius: var(--main-radius);
+    padding-top: var(--main-padding);
+}
+
+/* #T1a {
+    background-color: red;
+    grid-area: T1a;
+}
+
+#T1b {
+    background-color: red;
+    grid-area: T1b;
+}
+
+#T1c {
+    background-color: red;
+    grid-area: T1c;
+}
+
+#T2a {
+    background-color: yellow;
+    grid-area: T2a;
+}
+
+#T2b {
+    background-color: yellow;
+    grid-area: T2b;
+}
+
+#T2c {
+    background-color: yellow;
+    grid-area: T2c;
+}
+
+#T3a {
+    background-color: purple;
+    grid-area: T3a;
+}
+
+#T3b {
+    background-color: purple;
+    grid-area: T3b;
+}
+
+#T3c {
+    background-color: purple;
+    grid-area: T3c;
+} */
+
+#reset {
+    background-color: dodgerblue;
+    grid-area: reset;
+    border-radius: var(--main-radius);
+    padding-top: var(--main-padding);
+}
+
+#user1 {
+    background-color: greenyellow;
+    grid-area: user1;
+    border-radius: var(--main-radius);
+    padding-top: var(--main-padding);
+}
+
+#user2 {
+    background-color: fuchsia;
+    grid-area: user2;
+    border-radius: var(--main-radius);
+    padding-top: var(--main-padding);
+}
+
+/* media queries */
+@media only screen and (max-width: 550px) {
+    .grid-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1.5fr 3fr 1fr 1fr .5fr;
+        grid-template-areas:
+        "main-intro"
+        "game-board"
+        "user1"
+        "user2"
+        "reset"
+    }
+}
