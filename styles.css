@@ -1,12 +1,14 @@
-:root {
+/* :root {
     --main-raidius: 5px;
     --main-padding: 5px;
-}
+} */
 
 body {
     margin: 0;
     padding: 0
 }
+
+/* grid components */
 
 .grid-layout {
     display: grid;
@@ -19,94 +21,174 @@ body {
         "user1 game-board game-board game-board user2"
         "user1 game-board game-board game-board user2"
         "user1 reset reset reset user2";
-    grid-gap: 0.2rem;
+    /* grid-gap: 0.2rem; */
     font-family: sans-serif;
     text-align: center;
 }
 
-/* main {
-    background-color: bisque;
-    grid-area: main;
-} */
-
 .main-intro {
     background-color: chartreuse;
     grid-area: main-intro;
-    border-radius: var(--main-radius);
-    padding-top: var(--main-padding);
+    /* border-radius: var(--main-radius);
+    padding-top: var(--main-padding); */
 }
 
-.game-board {
+/*~~~~~~~~~~ Old Version ~~~~~~~~~~~~ */
+
+/* .game-board-bg {
+    height: 100vh;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+        "t1a t2a t3a"
+        "t1b t2b t3b"
+        "t1c t2c t3c";
+    grid-gap: 0.2rem;
+    font-family: sans-serif;
+    text-align: center;
     background-color: bisque;
     grid-area: game-board;
     border-radius: var(--main-radius);
     padding-top: var(--main-padding);
+    }
+*/
+
+
+.game-board {
+    display: grid;
+    padding: 3em;
+    min-height: 50vh;
+    min-width: 50vw;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+        "t1a t2a t3a"
+        "t1b t2b t3b"
+        "t1c t2c t3c";
+    /* grid-gap: 0.2rem; */
+    font-family: sans-serif;
+    text-align: center;
+    background-color: bisque;
+    grid-area: game-board;
+    /* border-radius: var(--main-radius);
+    padding-top: var(--main-padding); */
 }
 
-/* #T1a {
-    background-color: red;
-    grid-area: T1a;
-}
-
-#T1b {
-    background-color: red;
-    grid-area: T1b;
-}
-
-#T1c {
-    background-color: red;
-    grid-area: T1c;
-}
-
-#T2a {
-    background-color: yellow;
-    grid-area: T2a;
-}
-
-#T2b {
-    background-color: yellow;
-    grid-area: T2b;
-}
-
-#T2c {
-    background-color: yellow;
-    grid-area: T2c;
-}
-
-#T3a {
-    background-color: purple;
-    grid-area: T3a;
-}
-
-#T3b {
-    background-color: purple;
-    grid-area: T3b;
-}
-
-#T3c {
-    background-color: purple;
-    grid-area: T3c;
+/* .ttt-board {
+    display: grid;
+    padding: 3rem;
+    height: 50vh;
+    min-width: 50vw;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+        "t1a t2a t3a"
+        "t1b t2b t3b"
+        "t1c t2c t3c";
+    grid-gap: 0.2rem;
+    font-family: sans-serif;
+    text-align: center;
+    grid-area: game-board;
 } */
+
+#t1a {
+    background-color: red;
+    grid-area: t1a;
+    text-align: center;
+    border-right: 2px solid #333333;
+    border-bottom: 2px solid #333333;
+    
+}
+
+#t1b {
+    background-color: red;
+    grid-area: t1b;
+    text-align: center;
+    border-top: 2px solid #333333;
+    border-right: 2px solid #333333;
+    border-bottom: 2px solid #333333;
+}
+
+#t1c {
+    background-color: red;
+    grid-area: t1c;
+    text-align: center;
+    border-top: 2px solid #333333;
+    border-right: 2px solid #333333;
+}
+
+#t2a {
+    background-color: yellow;
+    grid-area: t2a;
+    text-align: center;
+    border-left: 2px solid #333333;
+    border-right: 2px solid #333333;
+    border-bottom: 2px solid #333333;
+}
+
+#t2b {
+    background-color: yellow;
+    grid-area: t2b;
+    text-align: center;
+    border-left: 2px solid #333333;
+    border-right: 2px solid #333333;
+    border-top: 2px solid #333333;
+    border-bottom: 2px solid #333333;
+}
+
+#t2c {
+    background-color: yellow;
+    grid-area: t2c;
+    text-align: center;
+    border-left: 2px solid #333333;
+    border-right: 2px solid #333333;
+    border-top: 2px solid #333333;
+}
+
+#t3a {
+    background-color: purple;
+    grid-area: t3a;
+    text-align: center;
+    border-left: 2px solid #333333;
+    border-bottom: 2px solid #333333;
+}
+
+#t3b {
+    background-color: purple;
+    grid-area: t3b;
+    text-align: center;
+    border-left: 2px solid #333333;
+    border-top: 2px solid #333333;
+    border-bottom: 2px solid #333333;
+}
+
+#t3c {
+    background-color: purple;
+    grid-area: t3c;
+    text-align: center;
+    border-left: 2px solid #333333;
+    border-top: 2px solid #333333;
+}
 
 #reset {
     background-color: dodgerblue;
     grid-area: reset;
-    border-radius: var(--main-radius);
-    padding-top: var(--main-padding);
+    /* border-radius: var(--main-radius);
+    padding-top: var(--main-padding); */
 }
 
 #user1 {
     background-color: greenyellow;
     grid-area: user1;
-    border-radius: var(--main-radius);
-    padding-top: var(--main-padding);
+    /* border-radius: var(--main-radius);
+    padding-top: var(--main-padding); */
 }
 
 #user2 {
     background-color: fuchsia;
     grid-area: user2;
-    border-radius: var(--main-radius);
-    padding-top: var(--main-padding);
+    /* border-radius: var(--main-radius);
+    padding-top: var(--main-padding); */
 }
 
 /* media queries */
