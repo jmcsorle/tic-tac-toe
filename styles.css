@@ -3,11 +3,38 @@ body {
     padding: 0
 }
 
-/* grid components */
+h1,
+h2,
+p,
+.grid-layout,
+.main-intro,
+.game-board {
+    font-family: 'rancho', sans-serif;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3.5rem;
+    letter-spacing: .3rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+    letter-spacing: .25rem;
+}
+
+p {
+    font-size: 1.5rem;
+    letter-spacing: .2rem;
+}
+
+.hidden {
+    display: none!important;
+  }
+
+/* ~~~~~~~~~~ grid components ~~~~~~~~~~ */
 
 .grid-layout {
-    font-family: sans-serif;
-    text-align: center;
     display: grid;
     height: 100vh;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -27,7 +54,7 @@ body {
     grid-area: main-intro;
 }
 
-/* ~~~~~~~~~ Tic Tac Toe Board* ~~~~~~~~~ */
+/* ~~~~~~~~~ Tic Tac Toe Board ~~~~~~~~~ */
 
 .game-board {
     display: grid;
@@ -40,8 +67,6 @@ body {
         "t1a t2a t3a"
         "t1b t2b t3b"
         "t1c t2c t3c";
-    font-family: sans-serif;
-    text-align: center;
     background-color: white;
     /* background-image: linear-gradient(#A9F1DF, #FFBBBB); */
     /* background-image: linear-gradient(#38EF7D, #11998E); */
@@ -61,7 +86,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: white;
-    text-align: center;
+    /* text-align: center; */
 }
 
 #t2a,
@@ -170,7 +195,8 @@ body {
     grid-area: user2;
 }
 
-/* media queries */
+/* ~~~~~~~~~~ media queries ~~~~~~~~~~ */
+
 @media only screen and (max-width: 550px) {
     .grid-layout {
         grid-template-columns: 1fr;
