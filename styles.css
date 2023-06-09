@@ -1,8 +1,3 @@
-/* :root {
-    --main-raidius: 5px;
-    --main-padding: 5px;
-} */
-
 body {
     margin: 0;
     padding: 0
@@ -11,52 +6,32 @@ body {
 /* grid components */
 
 .grid-layout {
+    font-family: sans-serif;
+    text-align: center;
     display: grid;
     height: 100vh;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1.4fr 1.1fr 1.1fr 1.1fr .3fr;
+    grid-template-rows: .8fr 1.4fr 1.4fr 1.4fr;
     grid-template-areas:
         "user1 main-intro main-intro main-intro user2"
         "user1 game-board game-board game-board user2"
         "user1 game-board game-board game-board user2"
         "user1 game-board game-board game-board user2"
-        "user1 reset reset reset user2";
-    /* grid-gap: 0.2rem; */
-    font-family: sans-serif;
-    text-align: center;
 }
 
 .main-intro {
-    background-color: chartreuse;
+    /* background-image: linear-gradient(#FFBBBB, #A9F1DF); */
+    /* background-image: linear-gradient(#11998E,#38EF7D); */
+    background-color: white;
+    padding-top: 3em;
     grid-area: main-intro;
-    /* border-radius: var(--main-radius);
-    padding-top: var(--main-padding); */
 }
 
-/*~~~~~~~~~~ Old Version ~~~~~~~~~~~~ */
-
-/* .game-board-bg {
-    height: 100vh;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas:
-        "t1a t2a t3a"
-        "t1b t2b t3b"
-        "t1c t2c t3c";
-    grid-gap: 0.2rem;
-    font-family: sans-serif;
-    text-align: center;
-    background-color: bisque;
-    grid-area: game-board;
-    border-radius: var(--main-radius);
-    padding-top: var(--main-padding);
-    }
-*/
-
+/* ~~~~~~~~~ Tic Tac Toe Board* ~~~~~~~~~ */
 
 .game-board {
     display: grid;
-    padding: 3em;
+    padding: 3em 3em 4.5em 3em;
     min-height: 50vh;
     min-width: 50vw;
     grid-template-columns: 1fr 1fr 1fr;
@@ -65,130 +40,134 @@ body {
         "t1a t2a t3a"
         "t1b t2b t3b"
         "t1c t2c t3c";
-    /* grid-gap: 0.2rem; */
     font-family: sans-serif;
     text-align: center;
-    background-color: bisque;
+    background-color: white;
+    /* background-image: linear-gradient(#A9F1DF, #FFBBBB); */
+    /* background-image: linear-gradient(#38EF7D, #11998E); */
     grid-area: game-board;
-    /* border-radius: var(--main-radius);
-    padding-top: var(--main-padding); */
 }
 
-/* .ttt-board {
-    display: grid;
-    padding: 3rem;
-    height: 50vh;
-    min-width: 50vw;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas:
-        "t1a t2a t3a"
-        "t1b t2b t3b"
-        "t1c t2c t3c";
-    grid-gap: 0.2rem;
-    font-family: sans-serif;
+#t1a,
+#t1b,
+#t1c,
+#t2a,
+#t2b,
+#t2c,
+#t3a,
+#t3b,
+#t3c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
     text-align: center;
-    grid-area: game-board;
+}
+
+#t2a,
+#t2b,
+#t2c,
+#t3a,
+#t3b,
+#t3c {
+    border-left: 2px solid #333333;
+}
+
+/* #t1a,
+#t1b,
+#t1c {
+    border-left: 10px solid white;
+} */
+
+#t1a,
+#t1b,
+#t1c,
+#t2a,
+#t2b,
+#t2c {
+    border-right: 2px solid #333333;  
+}
+
+/* #t3a,
+#t3b,
+#t3c {
+    border-right: 10px solid white;
+} */
+
+#t1b,
+#t1c,
+#t2b,
+#t2c,
+#t3b,
+#t3c {
+    border-top: 2px solid #333333;
+}
+
+/* #t1a,
+#t2a,
+#t3a {
+    border-top: 10px solid white;
+} */
+
+#t1a,
+#t1b,
+#t2a,
+#t2b,
+#t3a,
+#t3b {
+    border-bottom: 2px solid #333333;
+}
+
+/* #t1c,
+#t2c,
+#t3c {
+    border-bottom: 10px solid white;
 } */
 
 #t1a {
-    background-color: red;
     grid-area: t1a;
-    text-align: center;
-    border-right: 2px solid #333333;
-    border-bottom: 2px solid #333333;
-    
 }
 
 #t1b {
-    background-color: red;
-    grid-area: t1b;
-    text-align: center;
-    border-top: 2px solid #333333;
-    border-right: 2px solid #333333;
-    border-bottom: 2px solid #333333;
+    grid-area: t1b;  
 }
 
 #t1c {
-    background-color: red;
     grid-area: t1c;
-    text-align: center;
-    border-top: 2px solid #333333;
-    border-right: 2px solid #333333;
 }
 
 #t2a {
-    background-color: yellow;
     grid-area: t2a;
-    text-align: center;
-    border-left: 2px solid #333333;
-    border-right: 2px solid #333333;
-    border-bottom: 2px solid #333333;
 }
 
 #t2b {
-    background-color: yellow;
     grid-area: t2b;
-    text-align: center;
-    border-left: 2px solid #333333;
-    border-right: 2px solid #333333;
-    border-top: 2px solid #333333;
-    border-bottom: 2px solid #333333;
 }
 
 #t2c {
-    background-color: yellow;
     grid-area: t2c;
-    text-align: center;
-    border-left: 2px solid #333333;
-    border-right: 2px solid #333333;
-    border-top: 2px solid #333333;
 }
 
 #t3a {
-    background-color: purple;
     grid-area: t3a;
-    text-align: center;
-    border-left: 2px solid #333333;
-    border-bottom: 2px solid #333333;
 }
 
 #t3b {
-    background-color: purple;
     grid-area: t3b;
-    text-align: center;
-    border-left: 2px solid #333333;
-    border-top: 2px solid #333333;
-    border-bottom: 2px solid #333333;
 }
 
 #t3c {
-    background-color: purple;
     grid-area: t3c;
-    text-align: center;
-    border-left: 2px solid #333333;
-    border-top: 2px solid #333333;
-}
-
-#reset {
-    background-color: dodgerblue;
-    grid-area: reset;
-    /* border-radius: var(--main-radius);
-    padding-top: var(--main-padding); */
 }
 
 #user1 {
-    background-color: greenyellow;
+    background-image: linear-gradient(45deg, #2E3192, #1BFFFF);
     grid-area: user1;
-    /* border-radius: var(--main-radius);
-    padding-top: var(--main-padding); */
 }
 
 #user2 {
-    background-color: fuchsia;
+    background-image: linear-gradient(135deg, #1BFFFF, #2E3192);
     grid-area: user2;
-    /* border-radius: var(--main-radius);
-    padding-top: var(--main-padding); */
 }
 
 /* media queries */
