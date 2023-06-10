@@ -18,7 +18,8 @@ h1 {
     letter-spacing: .3rem;
 }
 
-h2 {
+h2,
+h3 {
     font-size: 2.5rem;
     letter-spacing: .25rem;
 }
@@ -48,8 +49,8 @@ p {
 
 .main-intro {
     /* background-image: linear-gradient(#FFBBBB, #A9F1DF); */
-    /* background-image: linear-gradient(#11998E,#38EF7D); */
-    background-color: white;
+    background-image: linear-gradient(#11998E,#38EF7D);
+    /* background-color: white; */
     padding-top: 3em;
     grid-area: main-intro;
 }
@@ -67,9 +68,9 @@ p {
         "t1a t2a t3a"
         "t1b t2b t3b"
         "t1c t2c t3c";
-    background-color: white;
+    /* background-color: white; */
     /* background-image: linear-gradient(#A9F1DF, #FFBBBB); */
-    /* background-image: linear-gradient(#38EF7D, #11998E); */
+    background-image: linear-gradient(#38EF7D, #11998E);
     grid-area: game-board;
 }
 
@@ -86,7 +87,7 @@ p {
     justify-content: center;
     align-items: center;
     background-color: white;
-    /* text-align: center; */
+    cursor: pointer;
 }
 
 #t2a,
@@ -186,7 +187,8 @@ p {
 }
 
 #user1 {
-    background-image: linear-gradient(45deg, #2E3192, #1BFFFF);
+    /* background-image: linear-gradient(45deg, #2E3192, #1BFFFF); */
+    background-image: linear-gradient(45deg, #C7004C, #FFAAAA);
     grid-area: user1;
 }
 
