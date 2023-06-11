@@ -1,12 +1,11 @@
 // ~~~~~~~~~~ DOM Management ~~~~~~~~~~
 
 // ~~~~~~~~~~~~~~ Query Selectors ~~~~~~~~~~~~~~
+var playerMessage = document.querySelector('#playerTurn');
 var player1 = document.querySelector('#troll1');
 var player1Wins = document.querySelector('#troll1Wins');
-var player1Token = document.querySelector('#player1Img');
 var player2 = document.querySelector('#troll2');
 var player2Wins = document.querySelector('#troll2Wins');
-var player2Token = document.querySelector('#player2Img')
 var gameBoard = document.querySelector('.game-board');
 var topLeft = document.querySelector('#t1a');
 var middleLeft = document.querySelector('#t1b');
@@ -22,7 +21,7 @@ var bottomRight = document.querySelector('#t3c');
 
 // window.addEventListener('load', startNewMatch);
 gameBoard.addEventListener('click', function(e){
-    testCell(e)
+    placeToken(e)
 });
 // topLeft.addEventListener('click', gameBoard);
 // topMiddle.addEventListener('click', gameBoard);
@@ -53,14 +52,14 @@ gameBoard.addEventListener('click', function(e){
 
 var players = [
     {
-        name: 'player1',
+        name: 'Raucous Red',
         token: 'Raucous Red Circle',
         class: 'troll',
         imgSrc:  'assets/Raucous-Red-Circle.png',
         wins: 0
     },
     {
-        name: "player2",
+        name: 'Blue Yaw',
         token: 'Blue Yaw Square',
         class: 'troll',
         imgSrc: 'assets/Blue-Yaw-Square.png',
@@ -84,14 +83,22 @@ var secondPlayer = players[1];
                   takeTurns
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-function takeTurns(thisPlayer) {
-    if (thisPlayer === "player1") {
-        thisPlayer = "player2"
+function switchPlayer() {
+    if (currentPlayer === firstPlayer) {
+        currentPlayer = secondPlayer;
     }
     else {
-        thisPlayer = "player1"
+        currentPlayer = firstPlayer;
        }
-    return thisPlayer
+}
+
+function changeMessage() {
+    playerMessage.innerText = `It's ${currentPlayer.name}'s Turn!`
+}
+
+function takeTurn(){
+    switchPlayer();
+    changeMessage();
 }
 
  /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -137,14 +144,15 @@ function testCell(e) {
 }
 
 function placeToken(e) {
-    if (currentPlayer === player1){
-        e.target.classList(id).innerHTML = `
-        <img id="player1Img" src="assets/Raucous-Red-Circle.png" alt="Racus Red" height="90" width="90" />
-        `;
+    var cell = testCell(e)
+    if (cell === 'full') {
+        playerMessage.innerText = `Sorry, that cell is full. Please choose another cell.`
     }
-    else {
-        e.target.classList(id).innerHTML = `
-        <img id="player2Img" src="assets/Blue-Yaw-Square.png" alt=""Blue Yaw" height="90" width="90"/>
+
+    else if (e.target.classList.contains('cell-area')) {
+        changeMessage();
+        e.target.innerHTML = `
+        <img class="troll" src="${currentPlayer.imgSrc}" alt="${currentPlayer.name} ${e.target.ariaLabel}" height="90" width="90"/>
         `
     }
 }
