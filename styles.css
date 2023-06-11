@@ -38,6 +38,7 @@ p {
 .grid-layout {
     display: grid;
     height: 100vh;
+    width: 100vw;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: .8fr 1.4fr 1.4fr 1.4fr;
     grid-template-areas:
@@ -49,8 +50,8 @@ p {
 
 .main-intro {
     /* background-image: linear-gradient(#FFBBBB, #A9F1DF); */
-    background-image: linear-gradient(#11998E,#38EF7D);
-    /* background-color: white; */
+    /* background-image: linear-gradient(#11998E,#38EF7D); */
+    background-color: white;
     padding-top: 3em;
     grid-area: main-intro;
 }
@@ -59,19 +60,29 @@ p {
 
 .game-board {
     display: grid;
-    padding: 3em 3em 4.5em 3em;
-    min-height: 50vh;
-    min-width: 50vw;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+    /* row-gap: 4px;
+    column-gap: 4px; */
     grid-template-areas:
         "t1a t2a t3a"
         "t1b t2b t3b"
         "t1c t2c t3c";
-    /* background-color: white; */
+    background-color: white;
     /* background-image: linear-gradient(#A9F1DF, #FFBBBB); */
-    background-image: linear-gradient(#38EF7D, #11998E);
+    /* background-image: linear-gradient(#38EF7D, #11998E); */
     grid-area: game-board;
+}
+
+.cell-area {
+    width: 110px;
+    height: 110px;
+    /* background-image: linear-gradient(#38EF7D, #11998E); */
+    border: 2px solid #333333;
+    background-color: white;
 }
 
 #t1a,
@@ -90,72 +101,36 @@ p {
     cursor: pointer;
 }
 
-#t2a,
-#t2b,
-#t2c,
-#t3a,
-#t3b,
-#t3c {
-    border-left: 2px solid #333333;
-}
-
-/* #t1a,
-#t1b,
-#t1c {
-    border-left: 10px solid white;
-} */
-
 #t1a,
-#t1b,
-#t1c,
-#t2a,
-#t2b,
-#t2c {
-    border-right: 2px solid #333333;  
-}
-
-/* #t3a,
-#t3b,
-#t3c {
-    border-right: 10px solid white;
-} */
-
-#t1b,
-#t1c,
-#t2b,
-#t2c,
-#t3b,
-#t3c {
-    border-top: 2px solid #333333;
-}
-
-/* #t1a,
 #t2a,
 #t3a {
-    border-top: 10px solid white;
-} */
+    border-top: none;
+}
 
 #t1a,
 #t1b,
-#t2a,
-#t2b,
-#t3a,
-#t3b {
-    border-bottom: 2px solid #333333;
+#t1c {
+    border-left: none;
 }
 
-/* #t1c,
+#t1c,
 #t2c,
 #t3c {
-    border-bottom: 10px solid white;
-} */
+    border-bottom: none;
+}
+
+#t3a,
+#t3b,
+#t3c {
+    border-right: none;
+}
 
 #t1a {
     grid-area: t1a;
 }
 
 #t1b {
-    grid-area: t1b;  
+    grid-area: t1b;
 }
 
 #t1c {
@@ -208,6 +183,6 @@ p {
         "game-board"
         "user1"
         "user2"
-        "reset"
+        /* "reset" */
     }
 }
