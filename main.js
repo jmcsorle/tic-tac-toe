@@ -150,10 +150,12 @@ function placeToken(e) {
     }
 
     else if (e.target.classList.contains('cell-area')) {
-        changeMessage();
+        // changeMessage();
         e.target.innerHTML = `
         <img class="troll" src="${currentPlayer.imgSrc}" alt="${currentPlayer.name} ${e.target.ariaLabel}" height="90" width="90"/>
-        `
+        `;
+        e.target.classList.add('full')
+        takeTurn();
     }
 }
 
