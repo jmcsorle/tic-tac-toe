@@ -87,13 +87,13 @@ function switchPlayer() {
        }
 }
 
-function changeMessage() {
+function changePlayerMessage() {
     playerMessage.innerText = `It's ${currentPlayer.name}'s Turn!`
 }
 
 function takeTurn(){
     switchPlayer();
-    changeMessage();
+    changePlayerMessage();
 }
 
 //  function resetGame() {
@@ -130,18 +130,25 @@ function placeToken(e) {
     if (cell === 'full') {
         playerMessage.innerText = `Sorry, that cell is full. Please choose another cell.`
     }
-
     else if (e.target.classList.contains('cell-area')) {
-        // changeMessage();
         e.target.innerHTML = `
         <img class="${currentPlayer.class} ${currentPlayer.color}" src="${currentPlayer.imgSrc}" alt="${currentPlayer.name} ${e.target.ariaLabel}" height="90" width="90"/>
         `;
         e.target.classList.add('full')
         if(checkWin(e)) {
-            console.log("add win logic here");
-        }
+            calculateWin(currentPlayer);
+            displayWin(currentPlayer);
+        }  
         else {
-            takeTurn();
+            var isDraw = calculateDraw();
+            console.log(isDraw);
+            if (isDraw) {
+                playerMessage.innerText = `It's a Draw! A new game will start in 5 seconds.`;
+                console.log('place refresh function here')
+            }
+            else {
+                takeTurn();
+            }
         }
     }
 }
@@ -172,143 +179,48 @@ function compareID(selectedIds) {
         var cellValue = document.querySelector(`#${selectedIds[i]}`)
         if( cellValue.classList.contains('full')) {
             var image = cellValue.querySelector('img');
-            // console.log(image.classList);
-            // console.log(currentPlayer.class);
             if (image.classList.contains(currentPlayer.color)) {
                 classMatch += 1;
-                // console.log(classMatch);
             }
         }
     }
     return classMatch;
 }
 
-/*
-
-var gameBoard = document.querySelector('.game-board');
-var topLeft = document.querySelector('#t1a');
-var middleLeft = document.querySelector('#t1b');
-var bottomLeft = document.querySelector('#t1c');
-var topCenter = document.querySelector('#t2a');
-var middleCenter = document.querySelector('#t2b');
-var bottomCenter = document.querySelector('#t2c');
-var topRight = document.querySelector('#t3a');
-var middleRight = document.querySelector('#t3b');
-var bottomRight = document.querySelector('#t3c');
-
-*/
-
-
-
-// function gameboard(e) {
-// 	var validMove = testSquare(e);
-// 	if (validMove) {
-// 		placeToken(e, currentPlayer);
-// 		if (testWin(currentPlayer)) {
-// 			increaseWins(currentPlayer);
-// 			currentPlayer = takeTurns(currentPlayer);
-// 			resetGame();
-// 		}
-// 	} else {
-// 		/* change message to tell currentPlayer to choose a different square */
-// 	}
-// }
-
-// function testWin(currentPlayer) {
-// 	let playerToken = players[currentPlayer].token;
-// 	if ((t1a === playerToken && t2a === playerToken && t3a === playerToken) ||
-// 		(t1b === playerToken && t2b === playerToken && t3b === playerToken) || 
-// 		(t1c === playerToken && t2c === playerToken && t3c === playerToken) || 
-// 		(t1a === playerToken && t2b === playerToken && t3c === playerToken) || 
-// 		(t3a === playerToken && t2b === playerToken && t1c === playerToken)) {
-// 			console.log 'player wins';
-// 		}
-// 	}
-// }
-// t1a.addEventListener('click', gameBoard);
-
-// function gameboard(e) {
-// 	let validMove = testSquare(e);
-// 	if (validMove) {
-// 		placeToken(e, currentPlayer);
-// 		if (testWin(currentPlayer)) {
-// 			increaseWins(currentPlayer);
-// 			currentPlayer = takeTurns(currentPlayer);
-// 			resetGame();
-// 		} if isDraw() {
-// 			currentPlayer = takeTurns(currentPlayer);
-// 			resetGame();
-// 		} else {
-// 			currentPlayer = takeTurns(currentPlayer);
-// 		}
-// 	} else {
-// 		/* change message to tell currentPlayer to choose a different square */
-// 	}
-// }
-
-// function testWin(currentPlayer) {
-// 	var pToken = players[currentPlayer].token;
-// 	if ((t1a === pToken && t2a === pToken && t3a === pToken) ||
-// 		(t1b === pToken && t2b === pToken && t3b === pToken) || 
-// 		(t1c === pToken && t2c === pToken && t3c === pToken) || 
-// 		(t1a === pToken && t2b === pToken && t3c === pToken) || 
-// 		(t3a === pToken && t2b === pToken && t1c === pToken)) {
-// 			console.log('player wins');
-// 		}
-// }
-
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-                  checkWin
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-function checkWin() {
-    var winner = ""
-
-
+function calculateWin(currentPlayer) {
+    currentPlayer.wins += 1
+    return currentPlayer
 }
 
-function isDraw() {
+function displayWin(currentPlayer){
+    playerMessage.innerText = `${currentPlayer.name} is the winner!`;
+    if (currentPlayer.name === 'Raucous Red') {
+        player1Wins.innerText = `${currentPlayer.wins} Wins`
+    }
+    else if (currentPlayer.name === 'Blue Yaw') {
+        player2Wins.innerText = `${currentPlayer.wins} Wins`
+    }
+}
 
-
-
+function calculateDraw() {
+   allCells = document.querySelectorAll('.cell-area');
+   fullCells = 0
+   checkDraw = ''
+   for (var i = 0; i < allCells.length; i++) {
+    if (allCells[i].classList.contains('full')) {
+        fullCells +=1;
+    }
+   }
+   if (fullCells === 9) {
+    checkDraw = true;
+   }
+   else {
+    checkDraw = false;
+   }
+   return checkDraw
 }
 
 
-function isDraw() {
-	if (t1a !== '' && t1b !== '' && t1c !== '' &&
-			t2a !== '' && t2b !== '' && t2c !== '' &&
-			t3a !== '' && t3b !== '' && t3c !== '') {
-		return true;
-	} else {
-		return false;
-	} 
-}
-
-
-
-========================================================== */
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                Increase Wins
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
-function increaseWins(winner) {
-    players[winner].wins +=1;
-}
-
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                  Restart Game / Match
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-function restart() {
-
-}
-
-=========================================================== */
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
