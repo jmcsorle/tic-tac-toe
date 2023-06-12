@@ -1,5 +1,3 @@
-// ~~~~~~~~~~ DOM Management ~~~~~~~~~~
-
 // ~~~~~~~~~~~~~~ Query Selectors ~~~~~~~~~~~~~~
 var playerMessage = document.querySelector('#playerTurn');
 var player1 = document.querySelector('#troll1');
@@ -7,15 +5,6 @@ var player1Wins = document.querySelector('#troll1Wins');
 var player2 = document.querySelector('#troll2');
 var player2Wins = document.querySelector('#troll2Wins');
 var gameBoard = document.querySelector('.game-board');
-var topLeft = document.querySelector('#t1a');
-var middleLeft = document.querySelector('#t1b');
-var bottomLeft = document.querySelector('#t1c');
-var topCenter = document.querySelector('#t2a');
-var middleCenter = document.querySelector('#t2b');
-var bottomCenter = document.querySelector('#t2c');
-var topRight = document.querySelector('#t3a');
-var middleRight = document.querySelector('#t3b');
-var bottomRight = document.querySelector('#t3c');
 
 // ~~~~~~~~~~~~~~ Event Listeners ~~~~~~~~~~~~~~
 
@@ -23,26 +12,6 @@ var bottomRight = document.querySelector('#t3c');
 gameBoard.addEventListener('click', function(e){
     placeToken(e)
 });
-// topLeft.addEventListener('click', gameBoard);
-// topMiddle.addEventListener('click', gameBoard);
-// topCenter.addEventListener('click', gameBoard);
-// topCenter.addEventListener('click', gameBoard);
-// middleCenter.addEventListener('click', gameBoard);
-// bottomCenter.addEventListener('click', gameBoard);
-// topRight.addEventListener('click', gameBoard);
-// middleRight.addEventListener('click', gameBoard);
-// bottomRight.addEventListener('click', gameBoard);
-
-// ~~~~~~~~~~~~~~ Data Model ~~~~~~~~~~~~~~
-
-
-
-// ~~~~~~~~~~~~~~ DOM Functions ~~~~~~~~~~~~~~
-
-//Game Board
-//User Data - must be able to save user data to local storage
-
-
 
 var winOptions = [
     ["t1a", "t1b", "t1c"],
@@ -54,6 +23,8 @@ var winOptions = [
     ["t1a", "t2b", "t3c"],
     ["t3a", "t2b", "t1c"]
 ]
+
+// ~~~~~~~~~~~~~~ Data Model ~~~~~~~~~~~~~~
 
 var players = [
     {
@@ -77,6 +48,9 @@ var players = [
 var firstPlayer = players[0];
 var currentPlayer = players[0];
 var secondPlayer = players[1];
+var startingPlayer = players[0];
+
+// ~~~~~~~~~~~~~~ Player Interaction Functions ~~~~~~~~~~~~~~
 
 function switchPlayer() {
     if (currentPlayer === firstPlayer) {
@@ -87,69 +61,47 @@ function switchPlayer() {
        }
 }
 
-function changePlayerMessage() {
-    playerMessage.innerText = `It's ${currentPlayer.name}'s Turn!`
-}
-
 function takeTurn(){
     switchPlayer();
     changePlayerMessage();
 }
 
-//  function resetGame() {
-//     if (currentPlayer === "player1") {
-//         firstPlayer = "player2"
-//        }
-//        else {
-//         firstPlayer = "player1"
-//        }
-//     return firstPlayer
-/*
-
-document.querySelectorAll('.cell-area');
-Store it to a variable
-iterate over the array and innerHTML for [i] to remove img
-innerHTML = ""
-
-
-*/
-
-// }
-
-function testCell(e) {
-    if (e.target.classList.contains('troll') || e.target.classList.contains('full')) {
-        return 'full'
-    }
-    else if(!e.target.classList.contains('game-board')) {
-        return 'empty'
-    }
-}
-
 function placeToken(e) {
-    var cell = testCell(e)
-    if (cell === 'full') {
-        playerMessage.innerText = `Sorry, that cell is full. Please choose another cell.`
+    var cell = testCell(e);
+    if (cell === 'full' && !checkWin(e)) {
+        playerMessage.innerText = `Sorry, that cell is full. Please choose another cell.`;
     }
     else if (e.target.classList.contains('cell-area')) {
         e.target.innerHTML = `
         <img class="${currentPlayer.class} ${currentPlayer.color}" src="${currentPlayer.imgSrc}" alt="${currentPlayer.name} ${e.target.ariaLabel}" height="90" width="90"/>
         `;
-        e.target.classList.add('full')
+        e.target.classList.add('full');
         if(checkWin(e)) {
             calculateWin(currentPlayer);
             displayWin(currentPlayer);
+            setTimeout(delayReset, 5000);
         }  
         else {
             var isDraw = calculateDraw();
-            console.log(isDraw);
             if (isDraw) {
                 playerMessage.innerText = `It's a Draw! A new game will start in 5 seconds.`;
-                console.log('place refresh function here')
+                setTimeout(delayReset, 5000);
             }
             else {
                 takeTurn();
             }
         }
+    }
+}
+
+// ~~~~~~~~~~~~~~ Win Logic Functions ~~~~~~~~~~~~~~
+
+function testCell(e) {
+    if (e.target.classList.contains('troll') || e.target.classList.contains('full')) {
+        return 'full';
+    }
+    else if(!e.target.classList.contains('game-board')) {
+        return 'empty';
     }
 }
 
@@ -166,34 +118,81 @@ function checkWinOptions(e) {
 function checkWin(e) {
     var filteredWins = checkWinOptions(e);
     for (var i = 0; i < filteredWins.length; i++) {
-        var winCheck = compareID(filteredWins[i]);
+        var winCheck = findWinner(filteredWins[i]);
         if (winCheck === 3) {
+            setAllCellsFull();
             return currentPlayer;
         }
     }
 }
 
-function compareID(selectedIds) {
-    var classMatch = 0
+function findWinner(selectedIds) {
+    var playerMatch = 0
     for (var i = 0; i < selectedIds.length; i++) {
         var cellValue = document.querySelector(`#${selectedIds[i]}`)
         if( cellValue.classList.contains('full')) {
             var image = cellValue.querySelector('img');
             if (image.classList.contains(currentPlayer.color)) {
-                classMatch += 1;
+                playerMatch += 1;
             }
         }
     }
-    return classMatch;
+    return playerMatch;
 }
 
 function calculateWin(currentPlayer) {
     currentPlayer.wins += 1
     return currentPlayer
+    //maybe save function goes here?
+}
+
+function calculateDraw() {
+    allCells = document.querySelectorAll('.cell-area');
+    fullCells = 0
+    checkDraw = ''
+    for (var i = 0; i < allCells.length; i++) {
+     if (allCells[i].classList.contains('full')) {
+         fullCells +=1;
+     }
+    }
+    if (fullCells === 9) {
+     checkDraw = true;
+    }
+    else {
+     checkDraw = false;
+    }
+    return checkDraw
+ }
+
+ function setAllCellsFull() {
+    allCells = document.querySelectorAll('.cell-area');
+    for (i = 0; i < allCells.length; i++) {
+        if (!allCells[i].classList.contains('full')) {
+            allCells[i].classList.add('full');
+        }
+    }
+    return allCells
+}
+ 
+ function startGamePlayer() {
+    if (startingPlayer === players[0]) {
+        startingPlayer = players[1];
+    }
+    else {
+        startingPlayer = players[0];
+       }
+       currentPlayer = startingPlayer
+       playerMessage.innerText = `It's a new game and it's ${currentPlayer.name}'s Turn!`
+}
+
+// ~~~~~~~~~~~~~~ DOM Manipulation Functions ~~~~~~~~~~~~~~
+
+function changePlayerMessage() {
+    playerMessage.innerText = `It's ${currentPlayer.name}'s Turn!`
 }
 
 function displayWin(currentPlayer){
-    playerMessage.innerText = `${currentPlayer.name} is the winner!`;
+    playerMessage.innerText = `${currentPlayer.name} is the winner! A new game will restart in 5 seconds.`;
     if (currentPlayer.name === 'Raucous Red') {
         player1Wins.innerText = `${currentPlayer.wins} Wins`
     }
@@ -202,22 +201,18 @@ function displayWin(currentPlayer){
     }
 }
 
-function calculateDraw() {
-   allCells = document.querySelectorAll('.cell-area');
-   fullCells = 0
-   checkDraw = ''
-   for (var i = 0; i < allCells.length; i++) {
-    if (allCells[i].classList.contains('full')) {
-        fullCells +=1;
+function resetGameBoard() {
+    var resetBoard = document.querySelectorAll('.cell-area');
+    for (var i = 0; i < resetBoard.length; i++) {
+        resetBoard[i].innerHTML = '';
+        resetBoard[i].classList.remove('full');
     }
-   }
-   if (fullCells === 9) {
-    checkDraw = true;
-   }
-   else {
-    checkDraw = false;
-   }
-   return checkDraw
+    return resetBoard
+}
+
+function delayReset() {
+    resetGameBoard();
+    startGamePlayer();
 }
 
 
