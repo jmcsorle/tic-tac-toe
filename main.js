@@ -44,17 +44,23 @@ gameBoard.addEventListener('click', function(e){
 
 
 
-
-// ~~~~~~~~~~~~~~ Game Logic ~~~~~~~~~~~~~~
-
-// A function that creates the objects that store each players’ informations - properties should include: id (ex: 'one'), token (ex: '⭐️'), wins (ex: 0)
-
+var winOptions = [
+    ["t1a", "t1b", "t1c"],
+    ["t2a", "t2b", "t2c"],
+    ["t3a", "t3b", "t3c"],
+    ["t1a", "t2a", "t3a"],
+    ["t1b", "t2b", "t3b"],
+    ["t1c", "t2c", "t3c"],
+    ["t1a", "t2b", "t3c"],
+    ["t3a", "t2b", "t1c"]
+]
 
 var players = [
     {
         name: 'Raucous Red',
         token: 'Raucous Red Circle',
         class: 'troll',
+        color: 'red',
         imgSrc:  'assets/Raucous-Red-Circle.png',
         wins: 0
     },
@@ -62,6 +68,7 @@ var players = [
         name: 'Blue Yaw',
         token: 'Blue Yaw Square',
         class: 'troll',
+        color: 'blue',
         imgSrc: 'assets/Blue-Yaw-Square.png',
         wins:0
     }
@@ -70,18 +77,6 @@ var players = [
 var firstPlayer = players[0];
 var currentPlayer = players[0];
 var secondPlayer = players[1];
-
- //Write this out to a cookie
- //Check to see if there's a cookie - if so, update the player data - if not, leave it at the defaults and start the game.
- //research how to write a cookie and how to read a cookie and add that functionality in
-
- /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                  Starting Player
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
- /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                  takeTurns
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 function switchPlayer() {
     if (currentPlayer === firstPlayer) {
@@ -101,36 +96,23 @@ function takeTurn(){
     changeMessage();
 }
 
- /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                  newGame
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+//  function resetGame() {
+//     if (currentPlayer === "player1") {
+//         firstPlayer = "player2"
+//        }
+//        else {
+//         firstPlayer = "player1"
+//        }
+//     return firstPlayer
+/*
 
- function resetGame() {
-    if (currentPlayer === "player1") {
-        firstPlayer = "player2"
-       }
-       else {
-        firstPlayer = "player1"
-       }
-    return firstPlayer
-}
+document.querySelectorAll('.cell-area');
+Store it to a variable
+iterate over the array and innerHTML for [i] to remove img
+innerHTML = ""
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                 gameBoard Function
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-// function gameBoard(e) {
-//     testCell(e);
-//     if (cellEmpty) {
-        
-        // 		placeToken(e, currentPlayer);
-        // 		if (testWin(currentPlayer)) {
-        // 			increaseWins(currentPlayer);
-        // 			currentPlayer = takeTurns(currentPlayer);
-        // 			resetGame();
-        // 		}
-        // 	} else {
-        // 		/* change message to tell currentPlayer to choose a different square
+*/
 
 // }
 
@@ -152,14 +134,69 @@ function placeToken(e) {
     else if (e.target.classList.contains('cell-area')) {
         // changeMessage();
         e.target.innerHTML = `
-        <img class="troll" src="${currentPlayer.imgSrc}" alt="${currentPlayer.name} ${e.target.ariaLabel}" height="90" width="90"/>
+        <img class="${currentPlayer.class} ${currentPlayer.color}" src="${currentPlayer.imgSrc}" alt="${currentPlayer.name} ${e.target.ariaLabel}" height="90" width="90"/>
         `;
         e.target.classList.add('full')
-        takeTurn();
+        if(checkWin(e)) {
+            console.log("add win logic here");
+        }
+        else {
+            takeTurn();
+        }
     }
 }
 
+function checkWinOptions(e) {
+    var matchWins = []
+    for (var i = 0; i < winOptions.length; i++){
+        if (winOptions[i].includes(e.target.id)) {
+            matchWins.push(winOptions[i])
+        }
+    }
+    return matchWins
+}
 
+function checkWin(e) {
+    var filteredWins = checkWinOptions(e);
+    for (var i = 0; i < filteredWins.length; i++) {
+        var winCheck = compareID(filteredWins[i]);
+        if (winCheck === 3) {
+            return currentPlayer;
+        }
+    }
+}
+
+function compareID(selectedIds) {
+    var classMatch = 0
+    for (var i = 0; i < selectedIds.length; i++) {
+        var cellValue = document.querySelector(`#${selectedIds[i]}`)
+        if( cellValue.classList.contains('full')) {
+            var image = cellValue.querySelector('img');
+            // console.log(image.classList);
+            // console.log(currentPlayer.class);
+            if (image.classList.contains(currentPlayer.color)) {
+                classMatch += 1;
+                // console.log(classMatch);
+            }
+        }
+    }
+    return classMatch;
+}
+
+/*
+
+var gameBoard = document.querySelector('.game-board');
+var topLeft = document.querySelector('#t1a');
+var middleLeft = document.querySelector('#t1b');
+var bottomLeft = document.querySelector('#t1c');
+var topCenter = document.querySelector('#t2a');
+var middleCenter = document.querySelector('#t2b');
+var bottomCenter = document.querySelector('#t2c');
+var topRight = document.querySelector('#t3a');
+var middleRight = document.querySelector('#t3b');
+var bottomRight = document.querySelector('#t3c');
+
+*/
 
 
 
