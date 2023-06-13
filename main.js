@@ -32,6 +32,7 @@ var players = [
         token: 'Raucous Red Circle',
         class: 'troll',
         color: 'red',
+        moves: [],
         imgSrc:  'assets/Raucous-Red-Circle.png',
         wins: 0
     },
@@ -40,6 +41,7 @@ var players = [
         token: 'Blue Yaw Square',
         class: 'troll',
         color: 'blue',
+        moves: [],
         imgSrc: 'assets/Blue-Yaw-Square.png',
         wins:0
     }
@@ -75,6 +77,8 @@ function placeToken(e) {
         e.target.innerHTML = `
         <img class="${currentPlayer.class} ${currentPlayer.color}" src="${currentPlayer.imgSrc}" alt="${currentPlayer.name} ${e.target.ariaLabel}" height="90" width="90"/>
         `;
+        currentPlayer.moves.push(e.target.id);
+        console.log(currentPlayer.moves);
         e.target.classList.add('full');
         if(checkWin(e)) {
             calculateWin(currentPlayer);
@@ -202,6 +206,8 @@ function displayWin(currentPlayer){
 }
 
 function resetGameBoard() {
+    players[0].moves = [];
+    players[1].moves = [];
     var resetBoard = document.querySelectorAll('.cell-area');
     for (var i = 0; i < resetBoard.length; i++) {
         resetBoard[i].innerHTML = '';
