@@ -189,7 +189,8 @@ p {
         letter-spacing: .2rem;
     } 
 
-    img {
+    #player1Img,
+    #player2Img {
         display: none;
       }
 
