@@ -8,10 +8,11 @@ var gameBoard = document.querySelector('.game-board');
 
 // ~~~~~~~~~~~~~~ Event Listeners ~~~~~~~~~~~~~~
 
-// window.addEventListener('load', startNewMatch);
 gameBoard.addEventListener('click', function(e){
-        placeToken(e)
-    // triggerWinDrawTurn(e)
+    if (winningGame === true) {
+        return;
+    }
+    placeToken(e);
 });
 
 var winOptions = [
@@ -70,6 +71,15 @@ function takeTurn(){
     changePlayerMessage();
 }
 
+function testCell(e) {
+    if (e.target.classList.contains('full')) {
+        return 'full';
+    }
+    else if(!e.target.classList.contains('game-board')) {
+        return 'empty';
+    }
+}
+
 function placeToken(e) {
     var cell = testCell(e);
     if (cell === 'full' && !checkWin(e)) {
@@ -81,51 +91,39 @@ function placeToken(e) {
         e.target.innerHTML = `
         <img class="${currentPlayer.class} ${currentPlayer.color}" src="${currentPlayer.imgSrc}" alt="${currentPlayer.name} ${e.target.ariaLabel}" height="90" width="90"/>
         `;
-        if(checkWin(e)) {
-            calculateWin(currentPlayer);
-            displayWin(currentPlayer);
-            setTimeout(delayReset, 5000);
-        }  
-        else {
-            var isDraw = calculateDraw();
-            if (isDraw) {
-                playerMessage.innerText = `It's a Draw! A new game will start in 5 seconds.`;
-                setTimeout(delayReset, 5000);
-            }
-            else {
-                takeTurn();
-            }
-        }
+        triggerWinDrawTurn(e);
     }
 }
 
-// function triggerWinDrawTurn(e) {
-//     placeToken(e)
-//     var isDraw = calculateDraw()
-//     if(checkWin(e)) {
-//         calculateWin(currentPlayer);
-//         displayWin(currentPlayer);
-//         setTimeout(delayReset, 5000);
-//     }  
-//     else if (isDraw) {
-//         playerMessage.innerText = `It's a Draw! A new game will start in 5 seconds.`;
-//             setTimeout(delayReset, 5000);
-//         }
-//     else {
-//         takeTurn();
-//     }
-// }
+function triggerWinDrawTurn(e) {
+    var isDraw = calculateDraw();
+    if(checkWin(e)) {
+        calculateWin(currentPlayer);
+        displayWin(currentPlayer);
+        setTimeout(delayReset, 5000);
+    }  
+    else if (isDraw) {
+        playerMessage.innerText = `It's a Draw! A new game will start in 5 seconds.`;
+        setTimeout(delayReset, 5000);
+        }
+    else {
+        takeTurn();
+    }
+}
+
+function startGamePlayer() {
+    if (startingPlayer === players[0]) {
+        startingPlayer = players[1];
+    }
+    else {
+        startingPlayer = players[0];
+       }
+       currentPlayer = startingPlayer
+       playerMessage.innerText = `It's a new game and it's ${currentPlayer.name}'s Turn!`
+}
 
 // ~~~~~~~~~~~~~~ Win Logic Functions ~~~~~~~~~~~~~~
 
-function testCell(e) {
-    if (e.target.classList.contains('troll') || e.target.classList.contains('full')) {
-        return 'full';
-    }
-    else if(!e.target.classList.contains('game-board')) {
-        return 'empty';
-    }
-}
 
 function checkWinOptions(e) {
     var matchWins = []
@@ -143,10 +141,14 @@ function checkWin(e) {
         var winCheck = findWinner(filteredWins[i]);
         if (winCheck === 3) {
             setAllCellsFull();
-            winningGame = true;
+            disableMouseClick();
             return currentPlayer;
         }
     }
+}
+
+function disableMouseClick() {
+    winningGame = true;
 }
 
 function findWinner(selectedIds) {
@@ -194,17 +196,6 @@ function calculateDraw() {
         }
     }
     return allCells
-}
- 
- function startGamePlayer() {
-    if (startingPlayer === players[0]) {
-        startingPlayer = players[1];
-    }
-    else {
-        startingPlayer = players[0];
-       }
-       currentPlayer = startingPlayer
-       playerMessage.innerText = `It's a new game and it's ${currentPlayer.name}'s Turn!`
 }
 
 // ~~~~~~~~~~~~~~ DOM Manipulation Functions ~~~~~~~~~~~~~~

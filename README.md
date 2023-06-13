@@ -2,12 +2,29 @@
 
 ## Abstract:
 [//]: <> (Briefly describe what you built and its features. What problem is the app solving? How does this application solve that problem?)
+I built a tic tac toe game using JavaScript, CSS, and HTML. The game has a troll theme with two players: Raucous Red and Blue Yaw. Raucas Red gameboard symbols are both red and in the shape of a circle and Blue Yaw gameboard symbols are both blue and in the shape of a square. This is to support the [Success Criteria 1.4.1 of the Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/TR/WCAG21/#use-of-color) of the Web Content Accessibility Guidelines that states "Color is not used as the only visual means of conveying information, indicating and action, prompting a response, or distinguishing a visual element."
+
+The game is not keyboard accessible, which violates [WCAG Success Criteria, 2.1 - Make all functionality available from a keyboard](https://www.w3.org/TR/WCAG21/#keyboard-accessible). I had hoped to get to a place in the project where I could add a skip to gameboard link and work on making the gameboard keyboard accessilbe, but just meeting the base requirements of the project took more time than I had hoped.
+
+When the page loads, or is refreshed, a new match is started, the data model is set to default settings and the game board does not have any tokens.
 
 ## Installation Instructions:
 [//]: <> (What steps does a person have to take to get your app cloned down and running?)
 
+At this point, the game is a private game on github and you have to have the link to access it: https://github.com/jmcsorle/tic-tac-toe.
+
+Once you load the repository in your brower, the upper right portion of the GitHub interface contains a "Fork button: <img width="1390" alt="image" src="https://user-images.githubusercontent.com/7227063/245514733-1144a3c1-803c-417c-8e80-42a5625a9ef1.png">
+
+Choose the fork button and follow the steps to fork the repository. Once the repository is forked, you will need to clone the repository to your machine by choosing the green "Code" button: <img width="403" alt="image" src="https://user-images.githubusercontent.com/7227063/245516498-945366b2-0b89-4529-92e0-60b722c29fcf.png">
+
 ## Preview of App:
 [//]: <> (Provide ONE gif or screenshot of your application - choose the "coolest" piece of functionality to show off.)
+I sort of "ish" got the application to convert to one column for smaller viewports. It's not where it should be, but it's kind of functional: 
+![image](https://user-images.githubusercontent.com/7227063/245553557-dfb2b132-a9ec-4f72-9968-64a9304d3379.png)
+
+Here is a screen shot of the application in full screen mode:
+
+<img width="1402" alt="image" src="https://user-images.githubusercontent.com/7227063/245554638-8b01e204-d116-424e-ae15-0e7d5fb2a9c6.png">
 
 ## Context:
 [//]: <> (Give some context for the project here. How long did you have to work on it? How far into the Turing program are you?)
