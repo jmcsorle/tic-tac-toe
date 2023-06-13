@@ -81,8 +81,15 @@ p {
     width: 110px;
     height: 110px;
     /* background-image: linear-gradient(#38EF7D, #11998E); */
+    /* background: url(assets/Rock-Background.png) no-repeat top left fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover; 
+    background-size: cover;
+    border: 3px solid white; */
     border: 2px solid #333333;
     background-color: white;
+   
 }
 
 #t1a,
@@ -175,6 +182,18 @@ p {
 /* ~~~~~~~~~~ media queries ~~~~~~~~~~ */
 
 @media only screen and (max-width: 550px) {
+    h2,
+    h3,
+    p {
+        font-size: 1.5rem;
+        letter-spacing: .2rem;
+    } 
+
+    #player1Img,
+    #player2Img {
+        display: none;
+      }
+
     .grid-layout {
         grid-template-columns: 1fr;
         grid-template-rows: 1.5fr 3fr 1fr 1fr .5fr;
@@ -182,7 +201,6 @@ p {
         "main-intro"
         "game-board"
         "user1"
-        "user2"
-        /* "reset" */
+        "user2";
     }
 }

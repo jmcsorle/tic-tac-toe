@@ -10,7 +10,7 @@ var gameBoard = document.querySelector('.game-board');
 
 // window.addEventListener('load', startNewMatch);
 gameBoard.addEventListener('click', function(e){
-    triggerWinDrawTurn(e)
+    placeToken(e)
 });
 
 var winOptions = [
@@ -32,6 +32,7 @@ var players = [
         token: 'Raucous Red Circle',
         class: 'troll',
         color: 'red',
+        moves: [],
         imgSrc:  'assets/Raucous-Red-Circle.png',
         wins: 0
     },
@@ -40,6 +41,7 @@ var players = [
         token: 'Blue Yaw Square',
         class: 'troll',
         color: 'blue',
+        moves: [],
         imgSrc: 'assets/Blue-Yaw-Square.png',
         wins:0
     }
@@ -75,24 +77,24 @@ function placeToken(e) {
         e.target.innerHTML = `
         <img class="${currentPlayer.class} ${currentPlayer.color}" src="${currentPlayer.imgSrc}" alt="${currentPlayer.name} ${e.target.ariaLabel}" height="90" width="90"/>
         `;
+        currentPlayer.moves.push(e.target.id);
+        console.log(currentPlayer.moves);
         e.target.classList.add('full');
-    }
-}
-
-function triggerWinDrawTurn(e) {
-    placeToken(e);
-    if(checkWin(e)) {
-        calculateWin(currentPlayer);
-        setAllCellsFull();
-        displayWin(currentPlayer);
-        setTimeout(delayReset, 5000);
-    }  
-    else if (calculateDraw(e)) {
-        playerMessage.innerText = `It's a Draw! A new game will start in 5 seconds.`;
-        setTimeout(delayReset, 5000);
-    }
-    else {
-        takeTurn();
+        if(checkWin(e)) {
+            calculateWin(currentPlayer);
+            displayWin(currentPlayer);
+            setTimeout(delayReset, 5000);
+        }  
+        else {
+            var isDraw = calculateDraw();
+            if (isDraw) {
+                playerMessage.innerText = `It's a Draw! A new game will start in 5 seconds.`;
+                setTimeout(delayReset, 5000);
+            }
+            else {
+                takeTurn();
+            }
+        }
     }
 }
 
@@ -128,10 +130,10 @@ function checkWin(e) {
     }
 }
 
-function findWinner(filteredWins) {
+function findWinner(selectedIds) {
     var playerMatch = 0
-    for (var i = 0; i < filteredWins.length; i++) {
-        var cellValue = document.querySelector(`#${filteredWins[i]}`)
+    for (var i = 0; i < selectedIds.length; i++) {
+        var cellValue = document.querySelector(`#${selectedIds[i]}`)
         if( cellValue.classList.contains('full')) {
             var image = cellValue.querySelector('img');
             if (image.classList.contains(currentPlayer.color)) {
@@ -204,6 +206,8 @@ function displayWin(currentPlayer){
 }
 
 function resetGameBoard() {
+    players[0].moves = [];
+    players[1].moves = [];
     var resetBoard = document.querySelectorAll('.cell-area');
     for (var i = 0; i < resetBoard.length; i++) {
         resetBoard[i].innerHTML = '';
