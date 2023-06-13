@@ -10,7 +10,7 @@ var gameBoard = document.querySelector('.game-board');
 
 // window.addEventListener('load', startNewMatch);
 gameBoard.addEventListener('click', function(e){
-    placeToken(e)
+    triggerWinDrawTurn(e)
 });
 
 var winOptions = [
@@ -76,21 +76,23 @@ function placeToken(e) {
         <img class="${currentPlayer.class} ${currentPlayer.color}" src="${currentPlayer.imgSrc}" alt="${currentPlayer.name} ${e.target.ariaLabel}" height="90" width="90"/>
         `;
         e.target.classList.add('full');
-        if(checkWin(e)) {
-            calculateWin(currentPlayer);
-            displayWin(currentPlayer);
-            setTimeout(delayReset, 5000);
-        }  
-        else {
-            var isDraw = calculateDraw();
-            if (isDraw) {
-                playerMessage.innerText = `It's a Draw! A new game will start in 5 seconds.`;
-                setTimeout(delayReset, 5000);
-            }
-            else {
-                takeTurn();
-            }
-        }
+    }
+}
+
+function triggerWinDrawTurn(e) {
+    placeToken(e);
+    if(checkWin(e)) {
+        calculateWin(currentPlayer);
+        setAllCellsFull();
+        displayWin(currentPlayer);
+        setTimeout(delayReset, 5000);
+    }  
+    else if (calculateDraw(e)) {
+        playerMessage.innerText = `It's a Draw! A new game will start in 5 seconds.`;
+        setTimeout(delayReset, 5000);
+    }
+    else {
+        takeTurn();
     }
 }
 
@@ -126,10 +128,10 @@ function checkWin(e) {
     }
 }
 
-function findWinner(selectedIds) {
+function findWinner(filteredWins) {
     var playerMatch = 0
-    for (var i = 0; i < selectedIds.length; i++) {
-        var cellValue = document.querySelector(`#${selectedIds[i]}`)
+    for (var i = 0; i < filteredWins.length; i++) {
+        var cellValue = document.querySelector(`#${filteredWins[i]}`)
         if( cellValue.classList.contains('full')) {
             var image = cellValue.querySelector('img');
             if (image.classList.contains(currentPlayer.color)) {
