@@ -8,7 +8,7 @@ var gameBoard = document.querySelector('.game-board');
 
 // ~~~~~~~~~~~~~~ Event Listeners ~~~~~~~~~~~~~~
 
-gameBoard.addEventListener('click', function(e){
+gameBoard.addEventListener('click', function (e) {
     if (winningGame === true) {
         return;
     }
@@ -35,7 +35,7 @@ var players = [
         class: 'troll',
         color: 'red',
         moves: [],
-        imgSrc:  'assets/Raucous-Red-Circle.png',
+        imgSrc: 'assets/Raucous-Red-Circle.png',
         wins: 0
     },
     {
@@ -45,7 +45,7 @@ var players = [
         color: 'blue',
         moves: [],
         imgSrc: 'assets/Blue-Yaw-Square.png',
-        wins:0
+        wins: 0
     }
 ]
 
@@ -63,19 +63,19 @@ function switchPlayer() {
     }
     else {
         currentPlayer = firstPlayer;
-       }
+    }
 }
 
-function takeTurn(){
+function takeTurn() {
     switchPlayer();
     changePlayerMessage();
 }
 
 function testCell(e) {
-    if (e.target.classList.contains('full')) {
+    if (e.target.classList.contains('full') || e.target.classList.contains('troll')) {
         return 'full';
     }
-    else if(!e.target.classList.contains('game-board')) {
+    else if (!e.target.classList.contains('game-board')) {
         return 'empty';
     }
 }
@@ -97,15 +97,15 @@ function placeToken(e) {
 
 function triggerWinDrawTurn(e) {
     var isDraw = calculateDraw();
-    if(checkWin(e)) {
-        calculateWin(currentPlayer);
+    if (checkWin(e)) {
+        increaseWins(currentPlayer);
         displayWin(currentPlayer);
         setTimeout(delayReset, 5000);
-    }  
+    }
     else if (isDraw) {
         playerMessage.innerText = `It's a Draw! A new game will start in 5 seconds.`;
         setTimeout(delayReset, 5000);
-        }
+    }
     else {
         takeTurn();
     }
@@ -117,9 +117,9 @@ function startGamePlayer() {
     }
     else {
         startingPlayer = players[0];
-       }
-       currentPlayer = startingPlayer
-       playerMessage.innerText = `It's a new game and it's ${currentPlayer.name}'s Turn!`
+    }
+    currentPlayer = startingPlayer
+    playerMessage.innerText = `It's a new game and it's ${currentPlayer.name}'s Turn!`
 }
 
 // ~~~~~~~~~~~~~~ Win Logic Functions ~~~~~~~~~~~~~~
@@ -127,7 +127,7 @@ function startGamePlayer() {
 
 function checkWinOptions(e) {
     var matchWins = []
-    for (var i = 0; i < winOptions.length; i++){
+    for (var i = 0; i < winOptions.length; i++) {
         if (winOptions[i].includes(e.target.id)) {
             matchWins.push(winOptions[i])
         }
@@ -155,7 +155,7 @@ function findWinner(selectedIds) {
     var playerMatch = 0
     for (var i = 0; i < selectedIds.length; i++) {
         var cellValue = document.querySelector(`#${selectedIds[i]}`)
-        if( cellValue.classList.contains('full')) {
+        if (cellValue.classList.contains('full')) {
             var image = cellValue.querySelector('img');
             if (image.classList.contains(currentPlayer.color)) {
                 playerMatch += 1;
@@ -165,7 +165,7 @@ function findWinner(selectedIds) {
     return playerMatch;
 }
 
-function calculateWin(currentPlayer) {
+function increaseWins(currentPlayer) {
     currentPlayer.wins += 1
     return currentPlayer
 }
@@ -175,20 +175,21 @@ function calculateDraw() {
     fullCells = 0
     checkDraw = ''
     for (var i = 0; i < allCells.length; i++) {
-     if (allCells[i].classList.contains('full')) {
-         fullCells +=1;
-     }
+        if (allCells[i].classList.contains('full')) {
+            fullCells += 1;
+        }
     }
     if (fullCells === 9) {
-     checkDraw = true;
+        checkDraw = true;
+        disableMouseClick();
     }
     else {
-     checkDraw = false;
+        checkDraw = false;
     }
     return checkDraw
- }
+}
 
- function setAllCellsFull() {
+function setAllCellsFull() {
     allCells = document.querySelectorAll('.cell-area');
     for (i = 0; i < allCells.length; i++) {
         if (!allCells[i].classList.contains('full')) {
@@ -204,7 +205,7 @@ function changePlayerMessage() {
     playerMessage.innerText = `It's ${currentPlayer.name}'s Turn!`
 }
 
-function displayWin(currentPlayer){
+function displayWin(currentPlayer) {
     playerMessage.innerText = `${currentPlayer.name} is the winner! A new game will restart in 5 seconds.`;
     if (currentPlayer.name === 'Raucous Red') {
         player1Wins.innerText = `${currentPlayer.wins} Wins`
