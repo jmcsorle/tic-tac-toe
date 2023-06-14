@@ -10,9 +10,7 @@ When the page loads, or is refreshed, a new match is started, the data model is 
 
 ## Installation Instructions:
 
-At this point, the game is a private game on github and you have to have the link to access it: https://github.com/jmcsorle/tic-tac-toe.
-
-Once you load the repository in your brower, the upper right portion of the GitHub interface contains a "Fork button: <img width="1390" alt="image" src="https://user-images.githubusercontent.com/7227063/245514733-1144a3c1-803c-417c-8e80-42a5625a9ef1.png">
+Once you load the [repository](https://github.com/jmcsorle/tic-tac-toe) in your brower, the upper right portion of the GitHub interface contains a "Fork button: <img width="1390" alt="image" src="https://user-images.githubusercontent.com/7227063/245514733-1144a3c1-803c-417c-8e80-42a5625a9ef1.png">
 
 Choose the fork button and follow the steps to fork the repository. Once the repository is forked, you will need to clone the repository to your machine by choosing the green "Code" button: <img width="403" alt="image" src="https://user-images.githubusercontent.com/7227063/245516498-945366b2-0b89-4529-92e0-60b722c29fcf.png">
 
@@ -62,9 +60,9 @@ The tech I used to build this project was:
 
 ### Breaking the project down into smaller chunks so that I could start on the JavaScript file was my biggest and most daunting challenge:
 
-Until I got to this project, I did not realize the effect the paired project work delegation would have on my ability to independently approach something like this. In both paired projects, I was paired with repeaters. I loved working with them and they were very kind and competent. However, they both took the lead on the JavaScript and would come to our meetings with working code. While I was able to understand that code, the fact that I did not personally struggle to get to that code, made me feel like I was ill prepared to complete this project - and frankly, I was.
+Until I got to this project, I did not realize the effect the paired project work delegation would have on my ability to independently approach something like this. 
 
-I was very shaky on event listeners and event delegation when I came into this project. I had to spend a lot of time rereading previous lessons and looking at code from previous projects to even get started. My confidence was definitely impacted by this, which made the project even more difficult. Personally, it would have helped me to have a paired project with someone in a different module, where their job was simply to coach and guide and my job was to do the actual coding. I know there's not enough time for this, but a girl can dream. Having to actually be the person typing and testing is what makes this stuff stick.
+Coming into this project, I was very shaky on event listeners and event delegation. I had to spend a lot of time rereading previous lessons and looking at code from previous projects to even get started. My confidence was definitely impacted by this, which made the project even more difficult. Personally, it would have helped me to have a paired project with someone in a different module, where their job was simply to coach and guide and my job was to do the actual coding. Having to actually be the person typing and testing is what makes this stuff stick.
 
 Ultimately, I am grateful for this project. Even though it is not perfect, I learned a lot.
 
@@ -76,10 +74,10 @@ I then reviewed another resource titled, [Create a Nested Grid](https://www.quac
 
 I really struggled with how to get the tic-tac-toe grid to not look like a box. I finally figured out that I needed to create a separate class for all of the cell areas and when I did that, I was able to more easily adjust the borders. I played with grid gap and some other things, but eventually landed on just using borders and removing the sides that were not needed.
 
-### Order of Operatios and stopping the event listener - both a challenge and a win:
+### Order of Operations and stopping the event listener - both a challenge and a win:
 
 I probably spent 3 hours trying to figure out why moving a nested if statement to a new function was not working. It ended up that I was calling the wrong function first with the event listener. Also, I was getting a type error if a game had been won and the user still clicked on cells. I learned a tip in study hall to just add a global variable that would be changed when a win condition was true and then I could use that variable to stop the event listener with a conditional statement. It was a simple, but effective solution.
 
 ### The setTimout() method:
 
-I was not a fan of having to implement this because automatically changing the DOM without user control, can violate several success criteria under [WCAG 2.2](https://www.w3.org/TR/WCAG21/#enough-time), but I am grateful that I learned about it and am also grateful for what I learned during study hall. I wanted two functions to be delayed and Kayla suggested that I put both of those functions into a separate function. It worked beautifully and now I feel like I have a much better understanding of this method ... even though the MDN document is still a bit over my head in terms of its explanation.
+I was not a fan of having to implement this because automatically changing the DOM without user control, can violate several success criteria under [WCAG 2.2](https://www.w3.org/TR/WCAG21/#enough-time), but I am grateful that I learned about it and am also grateful for what I learned during office hours. I wanted two functions to be delayed and Kayla suggested that I put both of those functions into a separate function. It worked beautifully and now I feel like I have a much better understanding of this method ... even though the MDN document is still a bit over my head in terms of its explanation.
